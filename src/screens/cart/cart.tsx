@@ -2,14 +2,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { State } from "../../models/product";
 import { addToCart, removeFromCart, clearCart } from "../../store/action/product";
 import './cart.css'
+import { useTranslation } from 'react-i18next';
+import { useEffect } from "react";
 
 export const Cart = () => {
     const state = useSelector((state: State) => state.products);
     const dispatch = useDispatch();
-
+    const {t} = useTranslation()
+    const { i18n } = useTranslation();
     const calculateTotal = () => {
         return state.cart.reduce((total, item) => total + item.quantity * item.product.price, 0);
     };
+
+    useEffect(() => {
+        document.documentElement.setAttribute('dir', i18n.language === 'ar' ? 'rtl' : 'ltr');
+
+    },[i18n.language])
 
     const clear = () => {
         dispatch(clearCart())
@@ -20,10 +28,10 @@ export const Cart = () => {
             <table className="cart-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Product Name</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
+                        <th>{t('id')}</th>
+                        <th>{t('name')}</th>
+                        <th>{t('quantity')}</th>
+                        <th>{t('price')}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,7 +55,7 @@ export const Cart = () => {
                 </tfoot>
                 <tfoot>
                     <tr className="total-row">
-                        <td colSpan={3}>Total Price</td>
+                        <td colSpan={3}>{t('totalPrice')}</td>
                         <td>${calculateTotal()}</td>
                     </tr>
                 </tfoot>

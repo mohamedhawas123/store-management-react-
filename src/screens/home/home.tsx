@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import {fetchProducts, addToCart} from '../../store/action/product'
 import { Product, State } from "../../models/product"
 import './home.css'
+import { useTranslation } from "react-i18next"
 
 
 export const HomePage = () => {
@@ -11,20 +12,22 @@ export const HomePage = () => {
     const state = useSelector((state: State) => state.products)
     const products = state.products;
     const loading=  state.loading
+    const { t } = useTranslation();
     
-    
-
+    const { i18n } = useTranslation();
     const addoCart = (product:Product) => {
         dispatch(addToCart(product))
     }
 
     useEffect(() => {
+        document.documentElement.setAttribute('dir', i18n.language === 'ar' ? 'rtl' : 'ltr');
         dispatch(fetchProducts());
-    }, [dispatch]);
+    }, [dispatch, i18n.language]);
 
     return (
 
         <>
+       
         {loading ?? (
         <div className="loader-container">
             <div className="loader"></div>
@@ -43,11 +46,11 @@ export const HomePage = () => {
                             <span className="discount-price">${(product.price * (1 - product.discountPercentage / 100)).toFixed(2)}</span>
                         </div>
                         <div className="product-details">
-                            <span className="rating">Rating: {product.rating}</span>
-                            <span className="stock">Stock: {product.stock}</span>
-                            <span className="brand">Brand: {product.brand}</span>
+                            <span className="rating">{t('rating')}: {product.rating}</span>
+                            <span className="stock">{t('stock')}: {product.stock}</span>
+                            <span className="brand">{t('brand')}: {product.brand}</span>
                         </div>
-                        <button onClick={() => addoCart(product)} >Add to Cart</button>
+                        <button onClick={() => addoCart(product)} >{t('addToCart')}</button>
                     </div>
                 </div>
             ))}

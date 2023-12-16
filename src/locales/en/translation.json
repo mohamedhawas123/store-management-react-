@@ -1,0 +1,15 @@
+{
+    "products": "Products",
+    "settings": "Settings",
+    "addToCart": "Add to Cart",
+    "totalPrice": "Total Price",
+    "clear": "Clear",
+    "id": "id",
+    "name":"name",
+    "quantity":"Quantity",
+    "price": "Price",
+    "rating": "rating",
+    "stock": "Stock",
+    "brand": "Brand"
+    
+}
