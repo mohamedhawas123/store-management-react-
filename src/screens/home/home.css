@@ -105,3 +105,12 @@ button:hover {
     100% { transform: rotate(360deg); }
   }
   
+  body.light-mode {
+    background-color: white;
+    color: black;
+  }
+  
+  body.dark-mode {
+    background-color: black;
+    color: white;
+  }

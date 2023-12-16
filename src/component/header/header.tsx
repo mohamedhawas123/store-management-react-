@@ -40,9 +40,7 @@ const Header = () => {
       </div>
       </Link> 
 
-      <button onClick={toggleLanguage}>
-      {i18n.language === 'en' ? 'عربي' : 'English'}
-    </button>
+      
       
     </div>
   );

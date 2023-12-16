@@ -4,6 +4,7 @@ import { addToCart, removeFromCart, clearCart } from "../../store/action/product
 import './cart.css'
 import { useTranslation } from 'react-i18next';
 import { useEffect } from "react";
+import { useTheme } from "../../theme/ThemeContext";
 
 export const Cart = () => {
     const state = useSelector((state: State) => state.products);
@@ -13,6 +14,14 @@ export const Cart = () => {
     const calculateTotal = () => {
         return state.cart.reduce((total, item) => total + item.quantity * item.product.price, 0);
     };
+
+    const { theme } = useTheme();
+    const isLightTheme = theme === 'light';
+
+    const style = {
+        backgroundColor: isLightTheme ? '#FFF' : '#363537',
+        color: isLightTheme ? '#363537' : '#FAFAFA',
+      };
 
     useEffect(() => {
         document.documentElement.setAttribute('dir', i18n.language === 'ar' ? 'rtl' : 'ltr');
@@ -25,7 +34,7 @@ export const Cart = () => {
 
     return (
         <div>
-            <table className="cart-table">
+            <table className="cart-table" style={style} >
                 <thead>
                     <tr>
                         <th>{t('id')}</th>

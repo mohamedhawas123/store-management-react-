@@ -5,6 +5,7 @@ import {fetchProducts, addToCart} from '../../store/action/product'
 import { Product, State } from "../../models/product"
 import './home.css'
 import { useTranslation } from "react-i18next"
+import { useTheme } from "../../theme/ThemeContext"
 
 
 export const HomePage = () => {
@@ -18,6 +19,13 @@ export const HomePage = () => {
     const addoCart = (product:Product) => {
         dispatch(addToCart(product))
     }
+    const { theme } = useTheme();
+    const isLightTheme = theme === 'light';
+
+    const style = {
+        backgroundColor: isLightTheme ? '#FFF' : '#363537',
+        color: isLightTheme ? '#363537' : '#FAFAFA',
+      };
 
     useEffect(() => {
         document.documentElement.setAttribute('dir', i18n.language === 'ar' ? 'rtl' : 'ltr');
@@ -33,7 +41,7 @@ export const HomePage = () => {
             <div className="loader"></div>
           </div>
         )}
-    <div className="product-container">
+    <div className="product-container" style={style} >
             
             {products.map(product => (
                 <div className="product-card" key={product.title}>
