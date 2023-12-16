@@ -1,8 +1,8 @@
 import axios from "axios"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import {fetchProducts} from '../../store/action/product'
-import { State } from "../../models/product"
+import {fetchProducts, addToCart} from '../../store/action/product'
+import { Product, State } from "../../models/product"
 import './home.css'
 
 
@@ -11,7 +11,12 @@ export const HomePage = () => {
     const state = useSelector((state: State) => state.products)
     const products = state.products;
     const loading=  state.loading
-    console.log(loading)
+    
+    
+
+    const addoCart = (product:Product) => {
+        dispatch(addToCart(product))
+    }
 
     useEffect(() => {
         dispatch(fetchProducts());
@@ -42,7 +47,7 @@ export const HomePage = () => {
                             <span className="stock">Stock: {product.stock}</span>
                             <span className="brand">Brand: {product.brand}</span>
                         </div>
-                        <button>Add to Cart</button>
+                        <button onClick={() => addoCart(product)} >Add to Cart</button>
                     </div>
                 </div>
             ))}

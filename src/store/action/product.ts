@@ -30,7 +30,25 @@ export const fetchProducts = ():any => async(dispatch:any) => {
         })
     }
 
-
-
 }
 
+export const addToCart = (product: Product) => {
+    return {
+        type: actionTypes.ADD_TO_CART,
+        payload: { product, quantity: 1 }
+    };
+};
+
+
+export const removeFromCart = (productId: number) => {
+    return {
+        type: actionTypes.REMOVE_FROM_CART,
+        payload: productId
+    };
+};
+
+export const clearCart = () => {
+    return {
+        type: actionTypes.CLEAR_CART
+    };
+};
